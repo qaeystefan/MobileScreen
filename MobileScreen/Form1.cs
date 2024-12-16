@@ -52,13 +52,11 @@ namespace MobileScreen
                 return $"Error running command: {ex.Message}";
             }
         }
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
             string ip = txtIP.Text.Trim();
             string port = txtPort.Text.Trim();
 
-
-            // Validate inputs
             if (string.IsNullOrEmpty(ip) || string.IsNullOrEmpty(port))
             {
                 MessageBox.Show("Please provide both IP and Port.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -70,40 +68,36 @@ namespace MobileScreen
 
             try
             {
-                // Check if adb.exe exists
                 if (!File.Exists("adb.exe"))
                 {
                     MessageBox.Show("adb.exe not found in the application directory.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                // Check if scrcpy.exe exists
                 if (!File.Exists("scrcpy.exe"))
                 {
                     MessageBox.Show("scrcpy.exe not found in the application directory.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                // Run ADB connect command
-                string adbOutput = RunCommand(adbCommand);
+                // Run the ADB command in the background
+                string adbOutput = await Task.Run(() => RunCommand(adbCommand));
                 if (!adbOutput.Contains("connected to"))
                 {
                     MessageBox.Show($"ADB connection failed:\n{adbOutput}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                // Run scrcpy command and capture its output
-                string scrcpyOutput = RunCommand(scrcpyCommand);
+                // Run scrcpy command and capture its output in the background
+                string scrcpyOutput = await Task.Run(() => RunCommand(scrcpyCommand));
 
-                // Check for errors in scrcpy output
                 if (scrcpyOutput.Contains("Could not find any ADB device") || scrcpyOutput.Contains("Server connection failed"))
                 {
                     MessageBox.Show($"scrcpy failed:\n{scrcpyOutput}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
-                    // MessageBox.Show("scrcpy started successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    Close();
+                    Close(); // Close the form after successful execution
                 }
             }
             catch (Exception ex)
@@ -111,16 +105,17 @@ namespace MobileScreen
                 MessageBox.Show($"An error occurred:\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void button2_Click(object sender, EventArgs e)
+
+        private void button2_Click_1(object sender, EventArgs e)
         {
             string ip = txtIP2.Text.Trim();
             string port = txtPort2.Text.Trim();
             string pairingCode = txtPairCode.Text.Trim(); // Get the pairing code from the textbox
 
             // Validate IP and Port inputs
-            if (string.IsNullOrEmpty(ip) || string.IsNullOrEmpty(port))
+            if (string.IsNullOrEmpty(ip) || string.IsNullOrEmpty(port) || string.IsNullOrEmpty(pairingCode))
             {
-                MessageBox.Show("Please provide both IP and Port.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please provide IP, Port, and CODE.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -182,5 +177,6 @@ namespace MobileScreen
                 MessageBox.Show($"An error occurred while executing the command:\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
     }
 }
