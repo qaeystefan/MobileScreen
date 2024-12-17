@@ -53,6 +53,9 @@
             this.hELPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.topicsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.txtOutput = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.labelToggleOutput = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -244,7 +247,7 @@
             this.hELPToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(336, 36);
+            this.menuStrip1.Size = new System.Drawing.Size(1416, 36);
             this.menuStrip1.TabIndex = 19;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -256,7 +259,7 @@
             this.aboutToolStripMenuItem});
             this.hELPToolStripMenuItem.Font = new System.Drawing.Font("Century Gothic", 8F);
             this.hELPToolStripMenuItem.Name = "hELPToolStripMenuItem";
-            this.hELPToolStripMenuItem.Size = new System.Drawing.Size(62, 32);
+            this.hELPToolStripMenuItem.Size = new System.Drawing.Size(62, 30);
             this.hELPToolStripMenuItem.Text = "HELP";
             // 
             // topicsToolStripMenuItem
@@ -273,12 +276,47 @@
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
+            // txtOutput
+            // 
+            this.txtOutput.Location = new System.Drawing.Point(326, 53);
+            this.txtOutput.Multiline = true;
+            this.txtOutput.Name = "txtOutput";
+            this.txtOutput.ReadOnly = true;
+            this.txtOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtOutput.Size = new System.Drawing.Size(1090, 569);
+            this.txtOutput.TabIndex = 20;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
+            this.label10.Location = new System.Drawing.Point(835, 25);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(80, 23);
+            this.label10.TabIndex = 21;
+            this.label10.Text = "OUTPUT";
+            // 
+            // labelToggleOutput
+            // 
+            this.labelToggleOutput.AutoSize = true;
+            this.labelToggleOutput.Font = new System.Drawing.Font("Century Gothic", 8F);
+            this.labelToggleOutput.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.labelToggleOutput.Location = new System.Drawing.Point(12, 586);
+            this.labelToggleOutput.Name = "labelToggleOutput";
+            this.labelToggleOutput.Size = new System.Drawing.Size(71, 21);
+            this.labelToggleOutput.TabIndex = 22;
+            this.labelToggleOutput.Text = "OUTPUT";
+            this.labelToggleOutput.Click += new System.EventHandler(this.labelToggleOutput_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(336, 615);
+            this.ClientSize = new System.Drawing.Size(1416, 616);
+            this.Controls.Add(this.labelToggleOutput);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.txtOutput);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.button3);
@@ -303,7 +341,8 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "Form1";
-            this.Opacity = 0.97D;
+            this.Opacity = 0.96D;
+            this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -337,6 +376,9 @@
         private System.Windows.Forms.ToolStripMenuItem hELPToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem topicsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.TextBox txtOutput;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label labelToggleOutput;
     }
 }
 

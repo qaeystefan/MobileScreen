@@ -14,11 +14,34 @@ namespace MobileScreen
 {
     public partial class Form1 : Form
     {
+
+        // Store initial form width and expanded width
+        private int initialFormWidth;
+        private int expandedFormWidth;
+
+        private Timer resizeTimer;       // Timer for smooth resizing
+        private int targetWidth;         // The target width for the form
+        private int resizeStep = 28;     // Step size for each tick (adjust for speed)
+        private bool expanding;          // Flag to indicate expand or collapse
+
+
         public Form1()
         {
             InitializeComponent();
+            // ToolTip for your label
             ToolTip toolTip = new ToolTip();
             toolTip.SetToolTip(label9, "Click to see ADB Commands list");
+
+            // Define initial and expanded widths
+            initialFormWidth = 234;  // Adjust to match the width for "1"
+            expandedFormWidth = 962; // Adjust to include "1 | 2"
+            this.Width = initialFormWidth; // Start with initial width
+            txtOutput.Visible = false;
+
+            // Initialize the Timer for smooth transition
+            resizeTimer = new Timer();
+            resizeTimer.Interval = 1; // Adjust for speed (lower = faster)
+            resizeTimer.Tick += ResizeTimer_Tick;
 
         }
         private string RunCommand(string command)
@@ -152,18 +175,16 @@ namespace MobileScreen
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private async void button3_Click(object sender, EventArgs e)
         {
-            string adbCommand = txtCommand.Text.Trim(); // Get the command entered in the textbox
+            string adbCommand = txtCommand.Text.Trim();
 
-            // Validate if the textbox is empty
             if (string.IsNullOrEmpty(adbCommand))
             {
                 MessageBox.Show("Please enter an adb command.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            // Check if adb.exe exists
             if (!File.Exists("adb.exe"))
             {
                 MessageBox.Show("adb.exe not found in the application directory.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -172,14 +193,28 @@ namespace MobileScreen
 
             try
             {
-                // Run the adb command entered by the user
-                string commandOutput = RunCommand(adbCommand); // Use your existing RunCommandWait method
+                string commandOutput = await Task.Run(() => RunCommand(adbCommand));
+
+                if (!string.IsNullOrEmpty(commandOutput))
+                {
+                    txtOutput.Text = commandOutput;
+
+                    // Show output TextBox and expand form width
+                    //txtOutput.Visible = true;
+                    //txtOutput.Width = 300; // Adjust width for expansion
+                    //this.Width = expandedFormWidth; // Expand form width
+                }
+                else
+                {
+                    MessageBox.Show("No output returned for the command.", "No Output", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"An error occurred while executing the command:\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void label9_Click(object sender, EventArgs e)
         {
@@ -213,7 +248,8 @@ namespace MobileScreen
                             "- Running ADB Commands\n" +
                             "Step 1: Enter any ADB command in the Command text box.\n" +
                             "Step 2: Click Run Command.\n" +
-                            "The app will execute the command, and any output or errors will be displayed in the app.\n\n" +
+                            "The app will execute the command, and any output or errors will be displayed in the app.\n" +
+                            "You will see the command's output in the output box, which can help troubleshoot or confirm command execution.\n\n" +
                             "- Opening ADB Command List\n" +
                             "Click on the Commands label (located in the app’s interface) to view a list of available ADB commands.\n" +
                             "This file is accessible from the Commands.txt file located in the app's directory.\n\n" +
@@ -237,5 +273,56 @@ namespace MobileScreen
                             "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         }
+
+        private void labelToggleOutput_Click(object sender, EventArgs e)
+        {
+            // Toggle the expanding direction based on current width
+            if (this.Width == expandedFormWidth)
+            {
+                targetWidth = initialFormWidth; // Collapse to initial width
+                expanding = false;
+                //txtOutput.Visible = false; // Hide the TextBox when collapsing
+            }
+            else
+            {
+                targetWidth = expandedFormWidth; // Expand to full width
+                expanding = true;
+                txtOutput.Visible = true; // Show the TextBox when expanding
+            }
+
+            // Start the Timer for the smooth resizing effect
+            resizeTimer.Start();
+        }
+
+        private void ResizeTimer_Tick(object sender, EventArgs e)
+        {
+            if (expanding)
+            {
+                // Expand the form width
+                if (this.Width < targetWidth)
+                {
+                    this.Width += resizeStep;
+                    if (this.Width > targetWidth) this.Width = targetWidth; // Stop at target
+                }
+                else
+                {
+                    resizeTimer.Stop(); // Stop Timer when done
+                }
+            }
+            else
+            {
+                // Collapse the form width
+                if (this.Width > targetWidth)
+                {
+                    this.Width -= resizeStep;
+                    if (this.Width < targetWidth) this.Width = targetWidth; // Stop at target
+                }
+                else
+                {
+                    resizeTimer.Stop(); // Stop Timer when done
+                }
+            }
+        }
+
     }
 }
