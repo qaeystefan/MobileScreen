@@ -17,6 +17,9 @@ namespace MobileScreen
         public Form1()
         {
             InitializeComponent();
+            ToolTip toolTip = new ToolTip();
+            toolTip.SetToolTip(label9, "Click to see ADB Commands list");
+
         }
         private string RunCommand(string command)
         {
@@ -178,5 +181,61 @@ namespace MobileScreen
             }
         }
 
+        private void label9_Click(object sender, EventArgs e)
+        {
+            string filePath = Path.Combine(Application.StartupPath, "Commands.txt"); // File in the same directory as the app
+
+            if (File.Exists(filePath))
+            {
+                Process.Start(filePath); // Open the file with default program (Notepad)
+            }
+            else
+            {
+                MessageBox.Show("The Commands.txt file was not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void topicsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Code to display Help Topics
+            MessageBox.Show("Follow the steps below to get started quickly.\n\n" +
+                            "- Connecting to an Android Device\n" +
+                            "Step 1: Enter the IP Address and Port of your Android device in the provided fields.\n" +
+                            "Step 2: Click Connect.\n" +
+                            "The app will attempt to establish a connection with the Android device using the ADB connect command.\n" +
+                            "If successful, the Android device screen will be mirrored on your PC using scrcpy.\n\n" +
+                            "- Pairing with an Android Device\n" +
+                            "If you're connecting to a device for the first time, you may need to pair it.\n" +
+                            "Step 1: Enter the IP Address, Port, and Pairing Code provided by the device.\n" +
+                            "Step 2: Click Pair.\n" +
+                            "The app will send the pairing code to the Android device, establishing a secure connection.\n" +
+                            "Once paired successfully, the device will be ready for control and screen mirroring.\n\n" +
+                            "- Running ADB Commands\n" +
+                            "Step 1: Enter any ADB command in the Command text box.\n" +
+                            "Step 2: Click Run Command.\n" +
+                            "The app will execute the command, and any output or errors will be displayed in the app.\n\n" +
+                            "- Opening ADB Command List\n" +
+                            "Click on the Commands label (located in the app’s interface) to view a list of available ADB commands.\n" +
+                            "This file is accessible from the Commands.txt file located in the app's directory.\n\n" +
+                            "- Troubleshooting\n" +
+                            "Ensure that adb.exe and scrcpy.exe are located in the same directory as the application.\n" +
+                            "If the connection fails, double-check the IP Address and Port you entered.\n" +
+                            "If scrcpy does not start, confirm that your Android device is properly connected and ready to mirror.\n\n" +
+                            "- Help and Support\n" +
+                            "For any additional questions or concerns, please feel free to send a direct message via Teams.",
+                            "Help Topics", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Code to display About App information
+            MessageBox.Show("This app serves as a GUI wrapper for ADB and scrcpy tool, simplifying the process of connecting, pairing, and running commands for Android devices. It’s particularly useful for:\n\n" +
+                            "QA and Developers testing Android devices over a network.\n" +
+                            "Users who want a quick way to mirror or control their Android screens on a PC.\n\n" +
+                            "Version 1.0\nCreated by Stefan",
+                            "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+        }
     }
 }
