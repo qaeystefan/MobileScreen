@@ -161,9 +161,10 @@
             // 
             // txtPairCode
             // 
+            this.txtPairCode.Font = new System.Drawing.Font("Century Gothic", 8F);
             this.txtPairCode.Location = new System.Drawing.Point(107, 349);
             this.txtPairCode.Name = "txtPairCode";
-            this.txtPairCode.Size = new System.Drawing.Size(110, 26);
+            this.txtPairCode.Size = new System.Drawing.Size(110, 27);
             this.txtPairCode.TabIndex = 12;
             // 
             // label7
@@ -237,12 +238,13 @@
             // menuStrip1
             // 
             this.menuStrip1.BackColor = System.Drawing.SystemColors.Control;
+            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.hELPToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(336, 32);
+            this.menuStrip1.Size = new System.Drawing.Size(336, 36);
             this.menuStrip1.TabIndex = 19;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -254,7 +256,7 @@
             this.aboutToolStripMenuItem});
             this.hELPToolStripMenuItem.Font = new System.Drawing.Font("Century Gothic", 8F);
             this.hELPToolStripMenuItem.Name = "hELPToolStripMenuItem";
-            this.hELPToolStripMenuItem.Size = new System.Drawing.Size(62, 28);
+            this.hELPToolStripMenuItem.Size = new System.Drawing.Size(62, 32);
             this.hELPToolStripMenuItem.Text = "HELP";
             // 
             // topicsToolStripMenuItem
