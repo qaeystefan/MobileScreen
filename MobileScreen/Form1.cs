@@ -51,6 +51,29 @@ namespace MobileScreen
             resizeTimer = new Timer();
             resizeTimer.Interval = 1; // Timer interval (lower = faster transition)
             resizeTimer.Tick += ResizeTimer_Tick; // Event handler for timer ticks
+
+            // Subscribe to the TextChanged event for both textboxes
+            txtIP.TextChanged += txtIP_TextChanged;
+            txtIP2.TextChanged += txtIP2_TextChanged;
+        }
+        // When the first IP textbox changes, update the second one
+        private void txtIP_TextChanged(object sender, EventArgs e)
+        {
+            // Avoid recursion (if the second textbox is updated, it will not update the first one)
+            if (txtIP2.Text != txtIP.Text)
+            {
+                txtIP2.Text = txtIP.Text;
+            }
+        }
+
+        // When the second IP textbox changes, update the first one
+        private void txtIP2_TextChanged(object sender, EventArgs e)
+        {
+            // Avoid recursion (if the first textbox is updated, it will not update the second one)
+            if (txtIP.Text != txtIP2.Text)
+            {
+                txtIP.Text = txtIP2.Text;
+            }
         }
 
         // Method to execute a command in the command prompt and capture output or error
@@ -141,7 +164,7 @@ namespace MobileScreen
                 else
                 {
                     // Close the form after successful execution
-                    Close();
+                    //Close();
                 }
             }
             catch (Exception ex)
