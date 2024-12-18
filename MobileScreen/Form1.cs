@@ -55,6 +55,11 @@ namespace MobileScreen
             // Subscribe to the TextChanged event for both textboxes
             txtIP.TextChanged += txtIP_TextChanged;
             txtIP2.TextChanged += txtIP2_TextChanged;
+
+            // Set up the radio buttons
+            radioADB.Checked = true; // ADB is selected by default
+            radioADB.CheckedChanged += RadioButton_CheckedChanged;
+            radioSCRCPY.CheckedChanged += RadioButton_CheckedChanged;
         }
         // When the first IP textbox changes, update the second one
         private void txtIP_TextChanged(object sender, EventArgs e)
@@ -221,48 +226,61 @@ namespace MobileScreen
         }
 
         // Button click event to execute an ADB command
-        private async void button3_Click(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e)
         {
-            string adbCommand = txtCommand.Text.Trim();
+            // Get the command text
+            string command = txtCommand.Text.Trim();
 
-            // Clear the output field and validate that the adb command is not empty
-            if (string.IsNullOrEmpty(adbCommand))
+            // Validate command input and clear output
+            if (string.IsNullOrEmpty(command))
             {
                 txtOutput.Clear();
-                MessageBox.Show("Please enter an adb command.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please enter a command.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            // Check if adb.exe exists
-            if (!File.Exists("adb.exe"))
+            // Determine which executable to use based on the selected radio button
+            string executable = radioADB.Checked ? "adb.exe" : "scrcpy.exe";
+
+            // Validate that the executable exists
+            if (!File.Exists(executable))
             {
-                MessageBox.Show("adb.exe not found in the application directory.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"{executable} not found in the application directory.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             try
             {
-                // Run the ADB command and capture output asynchronously
-                string commandOutput = await Task.Run(() => RunCommand(adbCommand));
+                // Execute the command asynchronously
+                Task.Run(() =>
+                {
+                    string output = RunCommand($"{executable} {command}");
 
-                // Display the output or handle if no output is returned
-                if (!string.IsNullOrEmpty(commandOutput))
-                {
-                    txtOutput.Text = commandOutput;
-                    storedOutput = commandOutput;  // Store the output to be saved later
-                }
-                else
-                {
-                    MessageBox.Show("No output returned for the command.", "No Output", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                    // Update the output textbox in the UI thread
+                    Invoke(new Action(() =>
+                    {
+                        txtOutput.Text = output;
+                        storedOutput = output; // Store the output for later use
+                    }));
+                });
             }
             catch (Exception ex)
             {
-                // Handle errors during command execution
                 MessageBox.Show($"An error occurred while executing the command:\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
+        // Optional: Update UI or state when the selected radio button changes
+        private void RadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioADB.Checked)
+            {
+                label8.Text = "Command: ADB";
+            }
+            else if (radioSCRCPY.Checked)
+            {
+                label8.Text = "Command: SCRCPY";
+            }
+        }
         // Event handler to open the Commands.txt file
         private void label9_Click(object sender, EventArgs e)
         {

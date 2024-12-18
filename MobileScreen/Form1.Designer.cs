@@ -57,6 +57,8 @@
             this.label10 = new System.Windows.Forms.Label();
             this.labelToggleOutput = new System.Windows.Forms.Label();
             this.labelOpenOutput = new System.Windows.Forms.Label();
+            this.radioADB = new System.Windows.Forms.RadioButton();
+            this.radioSCRCPY = new System.Windows.Forms.RadioButton();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -111,7 +113,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Century Gothic", 8F);
-            this.label3.Location = new System.Drawing.Point(228, 264);
+            this.label3.Location = new System.Drawing.Point(228, 237);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(51, 21);
             this.label3.TabIndex = 8;
@@ -121,7 +123,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Century Gothic", 8F);
-            this.label4.Location = new System.Drawing.Point(86, 264);
+            this.label4.Location = new System.Drawing.Point(86, 237);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(24, 21);
             this.label4.TabIndex = 7;
@@ -130,7 +132,7 @@
             // txtPort2
             // 
             this.txtPort2.Font = new System.Drawing.Font("Century Gothic", 8F);
-            this.txtPort2.Location = new System.Drawing.Point(197, 287);
+            this.txtPort2.Location = new System.Drawing.Point(197, 260);
             this.txtPort2.Name = "txtPort2";
             this.txtPort2.Size = new System.Drawing.Size(111, 27);
             this.txtPort2.TabIndex = 6;
@@ -138,7 +140,7 @@
             // txtIP2
             // 
             this.txtIP2.Font = new System.Drawing.Font("Century Gothic", 8F);
-            this.txtIP2.Location = new System.Drawing.Point(12, 287);
+            this.txtIP2.Location = new System.Drawing.Point(12, 260);
             this.txtIP2.Name = "txtIP2";
             this.txtIP2.Size = new System.Drawing.Size(175, 27);
             this.txtIP2.TabIndex = 5;
@@ -147,7 +149,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
-            this.label5.Location = new System.Drawing.Point(83, 224);
+            this.label5.Location = new System.Drawing.Point(83, 204);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(154, 23);
             this.label5.TabIndex = 10;
@@ -166,7 +168,7 @@
             // txtPairCode
             // 
             this.txtPairCode.Font = new System.Drawing.Font("Century Gothic", 8F);
-            this.txtPairCode.Location = new System.Drawing.Point(107, 349);
+            this.txtPairCode.Location = new System.Drawing.Point(107, 322);
             this.txtPairCode.Name = "txtPairCode";
             this.txtPairCode.Size = new System.Drawing.Size(110, 27);
             this.txtPairCode.TabIndex = 12;
@@ -175,7 +177,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Century Gothic", 8F);
-            this.label7.Location = new System.Drawing.Point(132, 326);
+            this.label7.Location = new System.Drawing.Point(132, 298);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(58, 21);
             this.label7.TabIndex = 13;
@@ -184,7 +186,7 @@
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Century Gothic", 8F);
-            this.button2.Location = new System.Drawing.Point(12, 386);
+            this.button2.Location = new System.Drawing.Point(12, 359);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(296, 42);
             this.button2.TabIndex = 14;
@@ -195,7 +197,7 @@
             // txtCommand
             // 
             this.txtCommand.Font = new System.Drawing.Font("Century Gothic", 8F);
-            this.txtCommand.Location = new System.Drawing.Point(12, 486);
+            this.txtCommand.Location = new System.Drawing.Point(12, 480);
             this.txtCommand.Name = "txtCommand";
             this.txtCommand.Size = new System.Drawing.Size(296, 27);
             this.txtCommand.TabIndex = 15;
@@ -203,7 +205,7 @@
             // button3
             // 
             this.button3.Font = new System.Drawing.Font("Century Gothic", 8F);
-            this.button3.Location = new System.Drawing.Point(12, 524);
+            this.button3.Location = new System.Drawing.Point(12, 518);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(296, 42);
             this.button3.TabIndex = 16;
@@ -215,11 +217,11 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
-            this.label8.Location = new System.Drawing.Point(73, 459);
+            this.label8.Location = new System.Drawing.Point(83, 414);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(170, 23);
+            this.label8.Size = new System.Drawing.Size(168, 23);
             this.label8.TabIndex = 17;
-            this.label8.Text = "ADB COMMAND";
+            this.label8.Text = "Command: ADB";
             // 
             // imageList1
             // 
@@ -322,12 +324,36 @@
             this.labelOpenOutput.Text = "📝";
             this.labelOpenOutput.Click += new System.EventHandler(this.labelOpenOutput_Click);
             // 
+            // radioADB
+            // 
+            this.radioADB.AutoSize = true;
+            this.radioADB.Location = new System.Drawing.Point(67, 450);
+            this.radioADB.Name = "radioADB";
+            this.radioADB.Size = new System.Drawing.Size(68, 24);
+            this.radioADB.TabIndex = 24;
+            this.radioADB.TabStop = true;
+            this.radioADB.Text = "ADB";
+            this.radioADB.UseVisualStyleBackColor = true;
+            // 
+            // radioSCRCPY
+            // 
+            this.radioSCRCPY.AutoSize = true;
+            this.radioSCRCPY.Location = new System.Drawing.Point(153, 450);
+            this.radioSCRCPY.Name = "radioSCRCPY";
+            this.radioSCRCPY.Size = new System.Drawing.Size(100, 24);
+            this.radioSCRCPY.TabIndex = 25;
+            this.radioSCRCPY.TabStop = true;
+            this.radioSCRCPY.Text = "SCRCPY";
+            this.radioSCRCPY.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1416, 616);
+            this.Controls.Add(this.radioSCRCPY);
+            this.Controls.Add(this.radioADB);
             this.Controls.Add(this.labelOpenOutput);
             this.Controls.Add(this.labelToggleOutput);
             this.Controls.Add(this.label10);
@@ -395,6 +421,8 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label labelToggleOutput;
         private System.Windows.Forms.Label labelOpenOutput;
+        private System.Windows.Forms.RadioButton radioADB;
+        private System.Windows.Forms.RadioButton radioSCRCPY;
     }
 }
 
